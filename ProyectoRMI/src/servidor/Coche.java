@@ -64,8 +64,7 @@ public class Coche {
 		
 		posicion.setLocation(limiteAncho(x), limiteAlto(y));
 		
-		Rectangle2D rec = obtenerHitbox().getBounds2D();
-		if(!servidor.obtenerPista().contains(rec)) {
+		if(!servidor.obtenerPista().contains(posicion.getX(), posicion.getY())) {
 			if(velocidad > 0) {
 				velocidad = -2;
 			} else if(velocidad < 0) {

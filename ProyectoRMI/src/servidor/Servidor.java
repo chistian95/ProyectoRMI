@@ -33,7 +33,7 @@ public class Servidor extends UnicastRemoteObject implements InterfaceServidor, 
 		
 		try {
 			LocateRegistry.createRegistry(1099);
-			Naming.rebind("rmi://127.0.0.1/serverProyecto", this);
+			Naming.rebind("rmi://192.168.222.155/serverProyecto", this);
 		} catch (MalformedURLException e) {
 		}
 		

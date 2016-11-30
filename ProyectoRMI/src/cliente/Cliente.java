@@ -54,7 +54,7 @@ public class Cliente extends Thread implements KeyListener {
 	        Media hit;
 			hit = new Media(this.getClass().getClassLoader().getResource("musica.mp3").toURI().toString());
 			sonido = new MediaPlayer(hit);
-			sonido.setVolume(0.1);
+			sonido.setVolume(0.5);
 	        sonido.setOnEndOfMedia(new Runnable() {
 	            public void run() {
 	            	sonido.seek(Duration.ZERO);
@@ -76,8 +76,10 @@ public class Cliente extends Thread implements KeyListener {
 	}
 	
 	private void actualizarDatosCoches() {
+		List<DatoCoche> cochesServer = new ArrayList<DatoCoche>();
 		try {
-			for(DatoCoche datos : server.getDatosCoches()) {
+			cochesServer = server.getDatosCoches();
+			for(DatoCoche datos : cochesServer) {
 				boolean encontrado = false;
 				for(Coche coche : coches) {
 					if(coche.getCodigoCliente() == datos.getCodigoCliente()) {
@@ -91,6 +93,20 @@ public class Cliente extends Thread implements KeyListener {
 				}
 			}
 		} catch (RemoteException e) {
+		}
+		if(coches.size() > cochesServer.size()) {
+			for(DatoCoche dato : cochesServer) {
+				boolean encontrado = false;
+				for(Coche coche : coches) {
+					if(coche.getCodigoCliente() == dato.getCodigoCliente()) {
+						encontrado = true;
+					}
+				}
+				if(!encontrado) {
+					cochesServer.remove(dato);
+					break;
+				}
+			}
 		}
 	}
 	
