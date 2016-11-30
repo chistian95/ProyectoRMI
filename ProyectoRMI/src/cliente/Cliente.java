@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.imageio.ImageIO;
+import javax.swing.JOptionPane;
 
 import servidor.Coche;
 import servidor.DatoCoche;
@@ -29,7 +30,11 @@ public class Cliente extends Thread implements KeyListener {
 	
 	public Cliente() {
 		try {
-			server = (InterfaceServidor) Naming.lookup("rmi://127.0.0.1/serverProyecto");
+			String ip = JOptionPane.showInputDialog("Introduce la IP");
+			if(ip == null || ip.length() <= 0) {
+				ip = "127.0.0.1";
+			}
+			server = (InterfaceServidor) Naming.lookup("rmi://" + ip + "/serverProyecto");
 			codigo = server.obtenerCodigo();
 			
 			fondo = ImageIO.read(this.getClass().getClassLoader().getResource("fondo.jpg"));

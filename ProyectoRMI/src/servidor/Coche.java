@@ -79,11 +79,11 @@ public class Coche {
 	}
 	
 	public void moverAlante() {
-		velocidad = velocidad > 4 ? 4 : velocidad + 0.1;
+		velocidad = velocidad > 3 ? 3 : velocidad + 0.1;
 	}
 	
 	public void moverAtras() {
-		velocidad = velocidad < -4 ? -4 : velocidad - 0.1;
+		velocidad = velocidad < -3 ? -3 : velocidad - 0.1;
 	}
 	
 	public void girarIzquierda() {
