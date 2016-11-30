@@ -4,6 +4,7 @@ import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
+import java.net.URISyntaxException;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -12,6 +13,10 @@ import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 
+import javafx.embed.swing.JFXPanel;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.util.Duration;
 import servidor.Coche;
 import servidor.DatoCoche;
 import servidor.InterfaceServidor;
@@ -27,6 +32,7 @@ public class Cliente extends Thread implements KeyListener {
 	private boolean derecha;
 	
 	private BufferedImage fondo;
+	private MediaPlayer sonido;
 	
 	public Cliente() {
 		try {
@@ -42,6 +48,22 @@ public class Cliente extends Thread implements KeyListener {
 			e.printStackTrace();
 			System.exit(0);
 		}		
+		
+		try {
+			new JFXPanel();
+	        Media hit;
+			hit = new Media(this.getClass().getClassLoader().getResource("musica.mp3").toURI().toString());
+			sonido = new MediaPlayer(hit);
+			sonido.setVolume(0.1);
+	        sonido.setOnEndOfMedia(new Runnable() {
+	            public void run() {
+	            	sonido.seek(Duration.ZERO);
+	            }
+	        });
+	        sonido.play();
+		} catch (URISyntaxException e) {
+		}  
+		
 		coches = new ArrayList<Coche>();
 		Pantalla pantalla = new Pantalla(this);
 		pantalla.addKeyListener(this);
