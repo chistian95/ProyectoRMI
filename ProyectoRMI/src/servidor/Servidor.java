@@ -221,4 +221,14 @@ public class Servidor extends UnicastRemoteObject implements InterfaceServidor, 
 	public Area obtenerPista() {
 		return areaPista;
 	}
+
+	@Override
+	public double getTurbo(int codigo) throws RemoteException {
+		for(Coche coche : coches) {
+			if(coche.getCodigoCliente() == codigo) {
+				return coche.getTurbo();
+			}
+		}
+		return 0.0;
+	}
 }

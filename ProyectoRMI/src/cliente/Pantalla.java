@@ -56,6 +56,8 @@ public class Pantalla extends JFrame implements Runnable, KeyListener {
 			
 		}		
 		
+		cliente.pintarInterfaz(bff);
+		
 		g.drawImage(bf, 0, 0, null);
 	}
 	

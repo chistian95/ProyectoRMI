@@ -15,4 +15,5 @@ public interface InterfaceServidor extends Remote {
 	public void moverIzquierda(int codigo) throws RemoteException;
 	public void moverDerecha(int codigo) throws RemoteException;
 	public void turbo(int codigo) throws RemoteException;
+	public double getTurbo(int codigo) throws RemoteException;
 }

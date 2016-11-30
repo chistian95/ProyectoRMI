@@ -1,5 +1,6 @@
 package cliente;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -130,6 +131,22 @@ public class Cliente extends Thread implements KeyListener {
 		g.drawImage(fondo, 0, 0, Pantalla.WIDTH, Pantalla.HEIGHT, null);
 	}
 	
+	public void pintarInterfaz(Graphics2D g) {
+		try {
+			g.setColor(Color.GRAY.darker());
+			g.fillRect(20, 20, 50, 10);
+			
+			g.setColor(Color.GREEN);
+			int ancho = (int) (server.getTurbo(codigo) / 5.0 * 50.0);
+			g.fillRect(20, 20, ancho, 10);
+			
+			g.setColor(Color.WHITE);
+			g.drawRect(20, 20, 50, 10);
+		} catch(Exception e) {
+			
+		}
+	}
+	
 	@Override
 	public void run() {
 		while(true) {
@@ -210,5 +227,9 @@ public class Cliente extends Thread implements KeyListener {
 
 	@Override
 	public void keyTyped(KeyEvent e) {
+	}
+	
+	public int getCodigo() {
+		return codigo;
 	}
 }

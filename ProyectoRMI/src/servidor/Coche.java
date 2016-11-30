@@ -26,10 +26,10 @@ public class Coche {
 	private String nombre;
 	
 	public Coche(Servidor servidor, Color color, int codigoCliente, String nombre) {
-		this(servidor, color, 525, 225, 10, 20, codigoCliente, 0, nombre);
+		this(servidor, color, 525, 225, 10, 20, codigoCliente, 0, nombre, 0.0);
 	}
 	
-	public Coche(Servidor servidor, Color color, double x, double y, int ancho, int alto, int codigoCliente, double angulo, String nombre) {
+	public Coche(Servidor servidor, Color color, double x, double y, int ancho, int alto, int codigoCliente, double angulo, String nombre, double turbo) {
 		posicion = new Vector2D(x, y);
 		
 		this.color = color;
@@ -39,7 +39,7 @@ public class Coche {
 		this.codigoCliente = codigoCliente;
 		this.angulo = angulo;
 		this.nombre = nombre;
-		this.turbo = 5.0;
+		this.turbo = turbo;
 		
 		velocidad = 0.0;
 		
@@ -187,7 +187,7 @@ public class Coche {
 	}
 	
 	public DatoCoche getDatosCoche() {
-		return new DatoCoche(color, posicion.getX(), posicion.getY(), ancho, alto, codigoCliente, angulo, nombre);
+		return new DatoCoche(color, posicion.getX(), posicion.getY(), ancho, alto, codigoCliente, angulo, nombre, turbo);
 	}
 	
 	public Shape obtenerHitbox() {
@@ -216,6 +216,10 @@ public class Coche {
 	
 	public Vector2D getPosicion() {
 		return posicion;
+	}
+	
+	public double getTurbo() {
+		return turbo;
 	}
 
 	@Override
