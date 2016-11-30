@@ -95,6 +95,10 @@ public class Servidor extends UnicastRemoteObject implements InterfaceServidor, 
 	    return new Area(gp);
 	}
 	
+	public List<Coche> getCoches() {
+		return coches;
+	}
+	
 	@Override
 	public void run() {
 		while(true) {

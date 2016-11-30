@@ -159,18 +159,23 @@ public class Cliente extends Thread implements KeyListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		switch(e.getKeyCode()) {
+		case KeyEvent.VK_UP:
 		case KeyEvent.VK_W:
 			arriba = true;
 			break;
+		case KeyEvent.VK_DOWN:
 		case KeyEvent.VK_S:
 			abajo = true;
 			break;
+		case KeyEvent.VK_LEFT:
 		case KeyEvent.VK_A:
 			izquierda = true;
 			break;
+		case KeyEvent.VK_RIGHT:
 		case KeyEvent.VK_D:
 			derecha = true;
 			break;
+		case KeyEvent.VK_SPACE:
 		case KeyEvent.VK_SHIFT:
 			turbo = true;
 			break;
@@ -180,18 +185,23 @@ public class Cliente extends Thread implements KeyListener {
 	@Override
 	public void keyReleased(KeyEvent e) {
 		switch(e.getKeyCode()) {
+		case KeyEvent.VK_UP:
 		case KeyEvent.VK_W:
 			arriba = false;
 			break;
+		case KeyEvent.VK_DOWN:
 		case KeyEvent.VK_S:
 			abajo = false;
 			break;
+		case KeyEvent.VK_LEFT:
 		case KeyEvent.VK_A:
 			izquierda = false;
 			break;
+		case KeyEvent.VK_RIGHT:
 		case KeyEvent.VK_D:
 			derecha = false;
 			break;
+		case KeyEvent.VK_SPACE:
 		case KeyEvent.VK_SHIFT:
 			turbo = false;
 			break;

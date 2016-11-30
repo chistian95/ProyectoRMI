@@ -72,11 +72,19 @@ public class Coche {
 		posicion.setLocation(limiteAncho(x), limiteAlto(y));
 		
 		if(!servidor.obtenerPista().contains(posicion.getX(), posicion.getY())) {
-			velocidad *= -1.05;
-			x = posicion.getX() + Math.sin(angulo) * velocidad;
-			y = posicion.getY() + Math.cos(angulo) * velocidad * -1;
-			
-			posicion.setLocation(limiteAncho(x), limiteAlto(y));
+			chocar();
+		}
+		
+		if(servidor != null) {
+			for(Coche coche : servidor.getCoches()) {
+				if(coche.getCodigoCliente() == this.codigoCliente) {
+					continue;
+				}
+				if(coche.obtenerHitbox().getBounds2D().contains(this.posicion.getX(), this.posicion.getY())) {
+					this.chocar();
+					break;
+				}
+			}
 		}
 		
 		if(velocidad > 0) {
@@ -84,6 +92,9 @@ public class Coche {
 		} else if(velocidad < 0) {
 			velocidad += 0.05;
 		}
+		
+		velocidad = velocidad > 5 ? 5 : velocidad;
+		velocidad = velocidad < -5 ? -5 : velocidad;
 	}
 	
 	public void pintar(Graphics2D g) {
@@ -100,6 +111,15 @@ public class Coche {
 		x = (int) (posicion.getX() - g.getFontMetrics().stringWidth(nombre) / 2);
 		g.setColor(Color.WHITE);
 		g.drawString(nombre, x, y - 10);
+	}
+	
+	private void chocar() {
+		velocidad *= -1.05;
+		
+		double x = posicion.getX() + Math.sin(angulo) * velocidad;
+		double y = posicion.getY() + Math.cos(angulo) * velocidad * -1;
+		
+		posicion.setLocation(limiteAncho(x), limiteAlto(y));
 	}
 	
 	private BufferedImage pintarImagen(BufferedImage img, Color color) {
@@ -138,11 +158,15 @@ public class Coche {
 	}
 	
 	public void moverAlante() {
-		velocidad = velocidad > 3 ? 3 : velocidad + 0.1;
+		if(velocidad < 3) {
+			velocidad += 0.1;
+		}
 	}
 	
 	public void moverAtras() {
-		velocidad = velocidad < -3 ? -3 : velocidad - 0.1;
+		if(velocidad > -3) {
+			velocidad -= 0.1;
+		}
 	}
 	
 	public void girarIzquierda() {
@@ -154,8 +178,12 @@ public class Coche {
 	}
 	
 	public void turbo() {
-		turbo -= 0.2;
-		velocidad += 0.2;
+		if(turbo >= 0.2) {
+			turbo -= 0.2;
+			if(velocidad < 5) {
+				velocidad += 0.1;
+			}
+		}
 	}
 	
 	public DatoCoche getDatosCoche() {
