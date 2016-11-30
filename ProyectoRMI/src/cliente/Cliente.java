@@ -95,15 +95,15 @@ public class Cliente extends Thread implements KeyListener {
 		} catch (RemoteException e) {
 		}
 		if(coches.size() > cochesServer.size()) {
-			for(DatoCoche dato : cochesServer) {
+			for(Coche coche : coches) {
 				boolean encontrado = false;
-				for(Coche coche : coches) {
+				for(DatoCoche dato : cochesServer) {
 					if(coche.getCodigoCliente() == dato.getCodigoCliente()) {
 						encontrado = true;
 					}
 				}
 				if(!encontrado) {
-					cochesServer.remove(dato);
+					coches.remove(coche);
 					break;
 				}
 			}
