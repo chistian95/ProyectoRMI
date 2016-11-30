@@ -54,10 +54,19 @@ public class Cliente extends Thread implements KeyListener {
 	}
 	
 	private void actualizarDatosCoches() {
-		coches.clear();
 		try {
 			for(DatoCoche datos : server.getDatosCoches()) {
-				coches.add(datos.construirCoche());
+				boolean encontrado = false;
+				for(Coche coche : coches) {
+					if(coche.getCodigoCliente() == datos.getCodigoCliente()) {
+						encontrado = true;
+						coche.actualizar(datos);
+						break;
+					}
+				}
+				if(!encontrado) {
+					coches.add(datos.construirCoche());
+				}
 			}
 		} catch (RemoteException e) {
 		}

@@ -121,16 +121,16 @@ public class Servidor extends UnicastRemoteObject implements InterfaceServidor, 
 		Color color;
 		switch(codigo%5) {
 		case 0:
-			color = Color.RED;
+			color = new Color(244, 75, 66);
 			break;
 		case 1:
-			color = Color.GREEN;
+			color = new Color(98, 244, 66);
 			break;
 		case 2:
-			color = Color.YELLOW;
+			color = new Color(241, 244, 66);
 			break;
 		case 3:
-			color = Color.BLUE;
+			color = new Color(66, 134, 244);
 			break;
 		case 4:
 			color = Color.WHITE;

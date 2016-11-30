@@ -27,4 +27,34 @@ public class DatoCoche implements Serializable {
 	public Coche construirCoche() {
 		return new Coche(null, color, x, y, ancho, alto, codigoCliente, angulo);
 	}
+
+	public Color getColor() {
+		return color;
+	}
+
+	public double getX() {
+		return x;
+	}
+
+	public double getY() {
+		return y;
+	}
+
+	public int getAncho() {
+		return ancho;
+	}
+
+	public int getAlto() {
+		return alto;
+	}
+
+	public int getCodigoCliente() {
+		return codigoCliente;
+	}
+
+	public double getAngulo() {
+		return angulo;
+	}
+	
+	
 }

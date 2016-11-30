@@ -5,11 +5,14 @@ import java.awt.Graphics2D;
 import java.awt.Shape;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
+
+import javax.imageio.ImageIO;
 
 import cliente.Pantalla;
 import mates.Vector2D;
 
-public class Coche {
+public class Coche {	
 	private Vector2D posicion;
 	private int ancho;
 	private int alto;
@@ -18,6 +21,7 @@ public class Coche {
 	private double velocidad;
 	private Servidor servidor;
 	private Color color;
+	private BufferedImage texturaCoche;		
 	
 	public Coche(Servidor servidor, Color color, int codigoCliente) {
 		this(servidor, color, 525, 225, 10, 20, codigoCliente, 0);
@@ -34,6 +38,21 @@ public class Coche {
 		this.angulo = angulo;
 		
 		velocidad = 0.0;
+		
+		if(servidor == null) {
+			try {
+				texturaCoche = ImageIO.read(this.getClass().getClassLoader().getResource("coche.png"));
+				texturaCoche = pintarImagen(texturaCoche, color);
+			} catch(Exception e) {
+				System.out.println("Error al cargar textura del coche");
+				System.exit(0);
+			}
+		}
+	}
+	
+	public void actualizar(DatoCoche datos) {
+		posicion.setLocation(datos.getX(), datos.getY());
+		angulo = datos.getAngulo();
 	}
 	
 	public void mover() {
@@ -72,10 +91,44 @@ public class Coche {
 		
 		int x = (int) (posicion.getX() - ancho / 2);
 		int y = (int) (posicion.getY() - alto / 2);
-		g.setColor(color);
-		g.fillRect(x, y, ancho, alto);
+		g.drawImage(texturaCoche, x, y, ancho, alto, null);
 		
 		g.setTransform(trans);
+	}
+	
+	private BufferedImage pintarImagen(BufferedImage img, Color color) {
+		BufferedImage res = new BufferedImage(img.getWidth(), img.getHeight(), BufferedImage.TRANSLUCENT);
+	    Graphics2D graphics = res.createGraphics();
+	    graphics.drawImage(img, 0, 0, null);
+	    graphics.dispose();
+
+	    float r = color.getRed() / 255.0F;
+	    float g = color.getGreen() / 255.0F;
+	    float b = color.getBlue() / 255.0F;
+	    float a = color.getAlpha() / 255.0F;
+	    
+	    for (int i = 0; i < res.getWidth(); i++)
+	    {
+	      for (int j = 0; j < res.getHeight(); j++)
+	      {
+	        int ax = res.getColorModel().getAlpha(res.getRaster().getDataElements(i, j, null));	        
+	        if(ax == 0) {
+	        	continue;
+	        }
+	        
+	        int rx = res.getColorModel().getRed(res.getRaster().getDataElements(i, j, null));
+	        int gx = res.getColorModel().getGreen(res.getRaster().getDataElements(i, j, null));
+	        int bx = res.getColorModel().getBlue(res.getRaster().getDataElements(i, j, null));
+	        
+	        rx *= r;
+	        gx *= g;
+	        bx *= b;
+	        ax *= a;
+	        
+	        res.setRGB(i, j, (ax << 24) | (rx << 16) | (gx << 8) | (bx));
+	      }
+	    }
+	    return res;
 	}
 	
 	public void moverAlante() {
@@ -124,5 +177,27 @@ public class Coche {
 	
 	public Vector2D getPosicion() {
 		return posicion;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + codigoCliente;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Coche other = (Coche) obj;
+		if (codigoCliente != other.codigoCliente)
+			return false;
+		return true;
 	}
 }
