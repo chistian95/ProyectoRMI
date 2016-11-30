@@ -40,6 +40,8 @@ public class Servidor extends UnicastRemoteObject implements InterfaceServidor, 
 			LocateRegistry.createRegistry(1099);
 			Naming.rebind("rmi://" + ip + "/serverProyecto", this);
 		} catch (MalformedURLException e) {
+			e.printStackTrace();
+			System.exit(0);
 		}
 		
 		System.out.println("Generando pista...");
@@ -152,8 +154,7 @@ public class Servidor extends UnicastRemoteObject implements InterfaceServidor, 
 			color = Color.BLACK;
 		}
 		Coche c = new Coche(this, color, codigo, nombre);
-		coches.add(c);
-		
+		coches.add(c);	
 		
 		return codigo;
 	}

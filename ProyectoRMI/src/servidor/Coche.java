@@ -26,10 +26,10 @@ public class Coche {
 	private String nombre;
 	
 	public Coche(Servidor servidor, Color color, int codigoCliente, String nombre) {
-		this(servidor, color, 525, 225, 10, 20, codigoCliente, 0, nombre, 0.0);
+		this(servidor, color, 525, 225, 10, 20, codigoCliente, 0, nombre);
 	}
 	
-	public Coche(Servidor servidor, Color color, double x, double y, int ancho, int alto, int codigoCliente, double angulo, String nombre, double turbo) {
+	public Coche(Servidor servidor, Color color, double x, double y, int ancho, int alto, int codigoCliente, double angulo, String nombre) {
 		posicion = new Vector2D(x, y);
 		
 		this.color = color;
@@ -39,7 +39,7 @@ public class Coche {
 		this.codigoCliente = codigoCliente;
 		this.angulo = angulo;
 		this.nombre = nombre;
-		this.turbo = turbo;
+		this.turbo = 0.0;
 		
 		velocidad = 0.0;
 		
@@ -64,7 +64,7 @@ public class Coche {
 			return;
 		}
 		if(turbo < 5) {
-			turbo += 0.05;
+			turbo += 0.01;
 		}
 		double x = posicion.getX() + Math.sin(angulo) * velocidad;
 		double y = posicion.getY() + Math.cos(angulo) * velocidad * -1;
@@ -93,8 +93,8 @@ public class Coche {
 			velocidad += 0.05;
 		}
 		
-		velocidad = velocidad > 5 ? 5 : velocidad;
-		velocidad = velocidad < -5 ? -5 : velocidad;
+		velocidad = velocidad > 7 ? 7 : velocidad;
+		velocidad = velocidad < -7 ? -7 : velocidad;
 	}
 	
 	public void pintar(Graphics2D g) {
@@ -180,14 +180,14 @@ public class Coche {
 	public void turbo() {
 		if(turbo >= 0.2) {
 			turbo -= 0.2;
-			if(velocidad < 5) {
-				velocidad += 0.1;
+			if(velocidad < 7) {
+				velocidad += 0.15;
 			}
 		}
 	}
 	
 	public DatoCoche getDatosCoche() {
-		return new DatoCoche(color, posicion.getX(), posicion.getY(), ancho, alto, codigoCliente, angulo, nombre, turbo);
+		return new DatoCoche(color, posicion.getX(), posicion.getY(), ancho, alto, codigoCliente, angulo, nombre);
 	}
 	
 	public Shape obtenerHitbox() {
