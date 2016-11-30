@@ -1,6 +1,5 @@
 package cliente;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
@@ -17,8 +16,8 @@ import servidor.Coche;
 public class Pantalla extends JFrame implements Runnable, KeyListener {
 	private static final long serialVersionUID = 4782356132041659314L;
 	
-	public final int WIDTH = 600;
-	public final int HEIGHT = 600;
+	public static final int WIDTH = 600;
+	public static final int HEIGHT = 600;
 	
 	private Cliente cliente;
 	private BufferedImage bf;
@@ -47,8 +46,7 @@ public class Pantalla extends JFrame implements Runnable, KeyListener {
 	public void paint(Graphics g) {
 		Graphics2D bff = (Graphics2D) bf.getGraphics();
 		
-		bff.setColor(Color.GREEN.darker());
-		bff.fillRect(0, 0, WIDTH, HEIGHT);	
+		cliente.pintarPista(bff);
 		
 		try {
 			for(Coche coche : cliente.getCoches()) {

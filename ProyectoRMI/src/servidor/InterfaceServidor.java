@@ -9,4 +9,9 @@ public interface InterfaceServidor extends Remote {
 	
 	public int obtenerCodigo() throws RemoteException;
 	public void desconectarCliente(int codigo) throws RemoteException;
+	
+	public void moverArriba(int codigo) throws RemoteException;
+	public void moverAbajo(int codigo) throws RemoteException;
+	public void moverIzquierda(int codigo) throws RemoteException;
+	public void moverDerecha(int codigo) throws RemoteException;
 }
