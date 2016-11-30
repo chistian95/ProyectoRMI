@@ -30,6 +30,7 @@ public class Cliente extends Thread implements KeyListener {
 	private boolean abajo;
 	private boolean izquierda;
 	private boolean derecha;
+	private boolean turbo;
 	
 	private BufferedImage fondo;
 	private MediaPlayer sonido;
@@ -40,8 +41,9 @@ public class Cliente extends Thread implements KeyListener {
 			if(ip == null || ip.length() <= 0) {
 				ip = "127.0.0.1";
 			}
+			String nombre = JOptionPane.showInputDialog("Introduce tu nombre");
 			server = (InterfaceServidor) Naming.lookup("rmi://" + ip + "/serverProyecto");
-			codigo = server.obtenerCodigo();
+			codigo = server.obtenerCodigo(nombre);
 			
 			fondo = ImageIO.read(this.getClass().getClassLoader().getResource("fondo.jpg"));
 		} catch(Exception e) {
@@ -144,6 +146,9 @@ public class Cliente extends Thread implements KeyListener {
 				if(derecha) {
 					server.moverDerecha(codigo);
 				}
+				if(turbo) {
+					server.turbo(codigo);
+				}
 				Thread.sleep(20);
 			} catch(InterruptedException | RemoteException e) {
 				
@@ -166,6 +171,9 @@ public class Cliente extends Thread implements KeyListener {
 		case KeyEvent.VK_D:
 			derecha = true;
 			break;
+		case KeyEvent.VK_SHIFT:
+			turbo = true;
+			break;
 		}
 	}
 
@@ -183,6 +191,9 @@ public class Cliente extends Thread implements KeyListener {
 			break;
 		case KeyEvent.VK_D:
 			derecha = false;
+			break;
+		case KeyEvent.VK_SHIFT:
+			turbo = false;
 			break;
 		}
 	}

@@ -119,9 +119,13 @@ public class Servidor extends UnicastRemoteObject implements InterfaceServidor, 
 	}
 
 	@Override
-	public int obtenerCodigo() throws RemoteException {
+	public int obtenerCodigo(String nombre) throws RemoteException {		
 		int codigo = clientes;
 		clientes++;
+		
+		if(nombre == null || nombre.length() <= 0) {
+			nombre = "Jugador " + codigo;
+		}
 		
 		Color color;
 		switch(codigo%5) {
@@ -143,7 +147,7 @@ public class Servidor extends UnicastRemoteObject implements InterfaceServidor, 
 		default:
 			color = Color.BLACK;
 		}
-		Coche c = new Coche(this, color, codigo);
+		Coche c = new Coche(this, color, codigo, nombre);
 		coches.add(c);
 		
 		
@@ -195,6 +199,16 @@ public class Servidor extends UnicastRemoteObject implements InterfaceServidor, 
 		for(Coche coche : coches) {
 			if(coche.getCodigoCliente() == codigo) {
 				coche.girarDerecha();
+				return;
+			}
+		}
+	}
+	
+	@Override
+	public void turbo(int codigo) throws RemoteException {
+		for(Coche coche : coches) {
+			if(coche.getCodigoCliente() == codigo) {
+				coche.turbo();
 				return;
 			}
 		}

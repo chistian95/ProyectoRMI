@@ -19,15 +19,17 @@ public class Coche {
 	private int codigoCliente;
 	private double angulo;
 	private double velocidad;
+	private double turbo;
 	private Servidor servidor;
 	private Color color;
 	private BufferedImage texturaCoche;		
+	private String nombre;
 	
-	public Coche(Servidor servidor, Color color, int codigoCliente) {
-		this(servidor, color, 525, 225, 10, 20, codigoCliente, 0);
+	public Coche(Servidor servidor, Color color, int codigoCliente, String nombre) {
+		this(servidor, color, 525, 225, 10, 20, codigoCliente, 0, nombre);
 	}
 	
-	public Coche(Servidor servidor, Color color, double x, double y, int ancho, int alto, int codigoCliente, double angulo) {
+	public Coche(Servidor servidor, Color color, double x, double y, int ancho, int alto, int codigoCliente, double angulo, String nombre) {
 		posicion = new Vector2D(x, y);
 		
 		this.color = color;
@@ -36,6 +38,7 @@ public class Coche {
 		this.alto = alto;
 		this.codigoCliente = codigoCliente;
 		this.angulo = angulo;
+		this.nombre = nombre;
 		
 		velocidad = 0.0;
 		
@@ -58,6 +61,9 @@ public class Coche {
 	public void mover() {
 		if(servidor == null) {
 			return;
+		}
+		if(turbo < 5) {
+			turbo += 0.05;
 		}
 		double x = posicion.getX() + Math.sin(angulo) * velocidad;
 		double y = posicion.getY() + Math.cos(angulo) * velocidad * -1;
@@ -93,6 +99,9 @@ public class Coche {
 		g.drawImage(texturaCoche, x, y, ancho, alto, null);
 		
 		g.setTransform(trans);
+		
+		g.setColor(Color.WHITE);
+		g.drawString(nombre, x, y - 10);
 	}
 	
 	private BufferedImage pintarImagen(BufferedImage img, Color color) {
@@ -146,8 +155,13 @@ public class Coche {
 		angulo += 0.1;
 	}
 	
+	public void turbo() {
+		turbo -= 0.2;
+		velocidad += 0.1;
+	}
+	
 	public DatoCoche getDatosCoche() {
-		return new DatoCoche(color, posicion.getX(), posicion.getY(), ancho, alto, codigoCliente, angulo);
+		return new DatoCoche(color, posicion.getX(), posicion.getY(), ancho, alto, codigoCliente, angulo, nombre);
 	}
 	
 	public Shape obtenerHitbox() {

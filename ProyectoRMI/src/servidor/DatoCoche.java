@@ -13,8 +13,9 @@ public class DatoCoche implements Serializable {
 	private int alto;
 	private int codigoCliente;
 	private double angulo;
+	private String nombre;
 	
-	public DatoCoche(Color color, double x, double y, int ancho, int alto, int codigoCliente, double angulo) {
+	public DatoCoche(Color color, double x, double y, int ancho, int alto, int codigoCliente, double angulo, String nombre) {
 		this.color = color;
 		this.x = x;
 		this.y = y;
@@ -22,10 +23,11 @@ public class DatoCoche implements Serializable {
 		this.alto = alto;
 		this.codigoCliente = codigoCliente;
 		this.angulo = angulo;
+		this.nombre = nombre;
 	}
 
 	public Coche construirCoche() {
-		return new Coche(null, color, x, y, ancho, alto, codigoCliente, angulo);
+		return new Coche(null, color, x, y, ancho, alto, codigoCliente, angulo, nombre);
 	}
 
 	public Color getColor() {
@@ -56,5 +58,7 @@ public class DatoCoche implements Serializable {
 		return angulo;
 	}
 	
-	
+	public String getNombre() {
+		return nombre;
+	}
 }
