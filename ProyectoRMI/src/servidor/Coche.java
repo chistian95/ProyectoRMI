@@ -39,6 +39,7 @@ public class Coche {
 		this.codigoCliente = codigoCliente;
 		this.angulo = angulo;
 		this.nombre = nombre;
+		this.turbo = 5.0;
 		
 		velocidad = 0.0;
 		
@@ -100,6 +101,7 @@ public class Coche {
 		
 		g.setTransform(trans);
 		
+		x = (int) (posicion.getX() - g.getFontMetrics().stringWidth(nombre) / 2);
 		g.setColor(Color.WHITE);
 		g.drawString(nombre, x, y - 10);
 	}
