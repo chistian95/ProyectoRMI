@@ -142,6 +142,7 @@ public class Cliente extends Thread implements KeyListener {
 			
 			g.setColor(Color.WHITE);
 			g.drawRect(20, 20, 50, 10);
+			g.drawString("Turbo", 20, 15);
 		} catch(Exception e) {
 			
 		}
