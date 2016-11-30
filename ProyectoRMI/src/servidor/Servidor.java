@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.imageio.ImageIO;
+import javax.swing.JOptionPane;
 
 public class Servidor extends UnicastRemoteObject implements InterfaceServidor, Runnable {
 	private static final long serialVersionUID = -7837459943188684283L;
@@ -32,8 +33,12 @@ public class Servidor extends UnicastRemoteObject implements InterfaceServidor, 
 		coches = new ArrayList<Coche>();
 		
 		try {
+			String ip = JOptionPane.showInputDialog("Introduce la ip local");
+			if(ip == null || ip.length() <= 0) {
+				ip = "127.0.0.1";
+			}
 			LocateRegistry.createRegistry(1099);
-			Naming.rebind("rmi://192.168.222.155/serverProyecto", this);
+			Naming.rebind("rmi://" + ip + "/serverProyecto", this);
 		} catch (MalformedURLException e) {
 		}
 		
