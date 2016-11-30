@@ -72,11 +72,7 @@ public class Coche {
 		posicion.setLocation(limiteAncho(x), limiteAlto(y));
 		
 		if(!servidor.obtenerPista().contains(posicion.getX(), posicion.getY())) {
-			if(velocidad > 0) {
-				velocidad = -2;
-			} else if(velocidad < 0) {
-				velocidad = 2;
-			}
+			velocidad *= -1.05;
 			x = posicion.getX() + Math.sin(angulo) * velocidad;
 			y = posicion.getY() + Math.cos(angulo) * velocidad * -1;
 			
@@ -159,7 +155,7 @@ public class Coche {
 	
 	public void turbo() {
 		turbo -= 0.2;
-		velocidad += 0.1;
+		velocidad += 0.2;
 	}
 	
 	public DatoCoche getDatosCoche() {
