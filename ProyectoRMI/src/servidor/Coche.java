@@ -26,7 +26,7 @@ public class Coche {
 	private String nombre;
 	
 	public Coche(Servidor servidor, Color color, int codigoCliente, String nombre) {
-		this(servidor, color, 525, 225, 10, 20, codigoCliente, 0, nombre);
+		this(servidor, color, 525, 250, 10, 20, codigoCliente, 0, nombre);
 	}
 	
 	public Coche(Servidor servidor, Color color, double x, double y, int ancho, int alto, int codigoCliente, double angulo, String nombre) {

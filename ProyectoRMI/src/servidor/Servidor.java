@@ -1,6 +1,7 @@
 package servidor;
 
 import java.awt.Color;
+import java.awt.Rectangle;
 import java.awt.geom.Area;
 import java.awt.geom.GeneralPath;
 import java.awt.image.BufferedImage;
@@ -25,6 +26,11 @@ public class Servidor extends UnicastRemoteObject implements InterfaceServidor, 
 	private BufferedImage pistaInterior;
 	private Area areaPista;
 	private Area areaPistaInterior;
+	
+	private Rectangle meta_uno;
+	private Rectangle meta_dos;
+	private Rectangle meta_tres;
+	private Rectangle meta_cuatro;
 
 	protected Servidor() throws RemoteException {
 		super();	
@@ -55,6 +61,11 @@ public class Servidor extends UnicastRemoteObject implements InterfaceServidor, 
 		areaPista = calcularArea(pista, new Color(134, 134, 134));
 		areaPistaInterior = calcularArea(pistaInterior, new Color(255, 0, 0));
 		areaPista.subtract(areaPistaInterior);
+		
+		meta_uno = new Rectangle(480, 220, 80, 25);
+		meta_dos = new Rectangle(280, 20, 25, 80);		
+		meta_tres = new Rectangle(240, 487, 25, 80);
+		meta_cuatro = new Rectangle(202, 260, 25, 80);
 		
 		(new Thread(this)).start();
 		System.out.println("Servidor abierto");
